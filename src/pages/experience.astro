@@ -1,0 +1,92 @@
+---
+import H1 from "../components/h1.astro";
+import InfoLayout from "../layouts/InfoLayout.astro";
+
+const experiences = [
+  {
+    company: "Seneca Applied Research",
+    position: "Research Assistant",
+    location: "Toronto, Canada",
+    period: "2024 - Present",
+    description: "Developed scalable OCR pipelines and production-ready APIs for an insurance tech project.",
+    responsibilities: [
+      "Built an end-to-end OCR document parsing pipeline using PyTorch and transformer models.",
+      "Processed 200-300 daily documents with a scalable architecture.",
+      "Containerized the service using Docker Compose and Poetry for modular deployments.",
+      "Exposed the solution via a FastAPI API with sub-second inference latency.",
+      "Implemented coding standards using Ruff and Pylint for maintainability.",
+      "Collaborated with researchers, faculty, and industry partners to deliver a production-ready prototype."
+    ],
+    technologies: ["PyTorch", "Transformers", "FastAPI", "Docker", "Python"]
+  },
+  {
+    company: "Mesons Technologies INC",
+    position: "Software Engineer Intern",
+    location: "Toronto, Canada",
+    period: "2024",
+    description: "Improved machine learning recommender systems and developed frontend features.",
+    responsibilities: [
+      "Developed ML models like linear regression, logistic regression, SVD, and Naive Bayes for recommendations.",
+      "Performed advanced data analysis and cleaning for improved model performance.",
+      "Optimized models using Bayesian optimization and evaluated with RMSE, precision@k, and recall@k.",
+      "Built backup recommendation models to maintain quality under peak loads.",
+      "Contributed to frontend development using React Native and Expo."
+    ],
+    technologies: ["Python", "PyTorch", "React Native", "Expo"]
+  },
+  {
+    company: "Seneca Polytechnic",
+    position: "Computer Lab Assistant",
+    location: "Toronto, Canada",
+    period: "2024",
+    description: "Provided academic support in labs, helping students grasp programming concepts and debug code.",
+    responsibilities: [
+      "Managed weekly lab sessions and provided guidance on programming exercises.",
+      "Troubleshot 50+ student projects, reducing average debugging time by 25%.",
+      "Improved student learning outcomes as measured by quiz performance.",
+      "Created a focused and supportive learning environment."
+    ],
+    technologies: ["C", "C++"]
+  }
+];
+---
+
+<InfoLayout>
+  <div class="p-4 sm:pt-8 sm:px-12 pb-20 min-h-dvh">
+    <H1>Experience</H1>
+
+    <div class="mt-4 sm:mt-12 space-y-12">
+      {experiences.map((exp) => (
+        <div class="group">
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2">
+            <div>
+              <h2 class="text-xl text-zinc-100 font-medium">{exp.position}</h2>
+              <p class="text-zinc-400">{exp.company}</p>
+            </div>
+            <div class="text-right">
+              <p class="text-sm text-zinc-500">{exp.period}</p>
+              <p class="text-sm text-zinc-500">{exp.location}</p>
+            </div>
+          </div>
+
+          <p class="text-zinc-400 mb-3">{exp.description}</p>
+
+          <ul class="space-y-1 mb-3">
+            {exp.responsibilities.map((resp) => (
+              <li class="text-sm text-zinc-400 flex items-start gap-2">
+                <span class="text-zinc-500 mt-1.5">•</span>
+                <span>{resp}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div class="flex flex-wrap gap-2">
+            {exp.technologies.map((tech) => (
+              <span class="text-xs px-2 py-1 rounded-full bg-zinc-800 text-zinc-400">{tech}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</InfoLayout>

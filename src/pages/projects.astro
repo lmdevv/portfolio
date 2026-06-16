@@ -1,41 +1,77 @@
 ---
-import { Image } from 'astro:assets';
 import H1 from "../components/h1.astro";
 import InfoLayout from "../layouts/InfoLayout.astro";
-import ACGenerator from "../assets/ac-generator.jpg";
-import FluidPropulsion from "../assets/fluid-propulsion.jpg";
-import ElectricMotor from "../assets/electro-magnetic-motor.jpg";
 
 const projects = [
      {
-          title: "AC Generator",
-          description: "Transform mechanical energy into alternating current, powering the modern electric grid",
-          image: ACGenerator
+          title: "tabby",
+          description: "A Chrome extension that uses local AI from your browser to organize tabs for you, including grouping tabs together, tab cleanup, sorting tabs, and moving tabs to resource groups or workspaces.",
+          url: "https://github.com/lmdevv/tabby",
+          languages: ["TypeScript", "React", "Vite", "Tailwind"],
+          topics: ["chrome-extension", "ai", "tab-management"]
      },
      {
-          title: "Fluid Propulsion",
-          description: "Bladeless turbine using fluid dynamics for efficient, low-friction propulsion.",
-          image: FluidPropulsion
+          title: "committer",
+          description: "A simple Go TUI application that accelerates Git commits and stashes by using AI to generate pertinent commit messages based on the Git diff.",
+          url: "https://github.com/lmdevv/committer",
+          languages: ["Go", "Shell", "Git", "Nix"],
+          topics: []
      },
      {
-          title: "Electro-Magnetic Motor",
-          description: "Harness alternating current to produce smooth, efficient rotary motion.",
-          image: ElectricMotor
-     }];
+          title: "movie-recommendation-system",
+          description: "Recommendation algorithm using MovieLens dataset.",
+          url: "https://github.com/lmdevv/movie-recommendation-system",
+          homepage: "https://notflix.streamlit.app/",
+          languages: ["Jupyter Notebook", "Python"],
+          topics: ["machine-learn", "python", "recommender-system"]
+     },
+     {
+          title: "Databases-Projects",
+          description: "Repository with all my projects involving SQL and Databases.",
+          url: "https://github.com/lmdevv/Databases-Projects",
+          languages: ["PHP", "JavaScript", "Hack"],
+          topics: []
+     }
+];
 ---
 
 <InfoLayout>
      <div class="p-4 sm:pt-8 sm:px-12 pb-20 min-h-dvh">
           <H1> Projects </H1>
 
-          <ul class="mt-4 sm:mt-12 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-16 sm:gap-8">
+          <ul class="mt-4 sm:mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8">
                {projects.map((project) => (
-                    <li>
-                         <Image src={project.image} alt={project.title} class="aspect-[1/1.33] object-center object-cover rounded-lg shadow-lg mb-4 sm:mb-0 sm:mr-4" />
-                         <div class="p-1 sm:p-2">
-                              <h2 class="text-base text-zinc-100">{project.title}</h2>
-                              <p class="text-sm text-zinc-400 text-balance">{project.description}</p>
+                    <li class="group p-4 rounded-lg border border-zinc-800 hover:border-zinc-700 transition-colors">
+                         <div class="flex items-start justify-between mb-2">
+                              <h2 class="text-lg text-zinc-100 font-medium group-hover:text-white">
+                                   <a href={project.url} target="_blank" rel="noopener noreferrer" class="flex items-center gap-2">
+                                        {project.title}
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-zinc-500 group-hover:text-zinc-300 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                             <polyline points="15 3 21 3 21 9"/>
+                                             <line x1="10" y1="14" x2="21" y2="3"/>
+                                        </svg>
+                                   </a>
+                              </h2>
+                              {project.homepage && (
+                                   <a href={project.homepage} target="_blank" rel="noopener noreferrer" class="text-xs text-zinc-500 hover:text-zinc-300">
+                                        Live Demo
+                                   </a>
+                              )}
                          </div>
+                         <p class="text-sm text-zinc-400 text-balance mb-3">{project.description}</p>
+                         <div class="flex flex-wrap gap-2 mb-2">
+                              {project.languages.map((lang) => (
+                                   <span class="text-xs px-2 py-1 rounded-full bg-zinc-800 text-zinc-400">{lang}</span>
+                              ))}
+                         </div>
+                         {project.topics.length > 0 && (
+                              <div class="flex flex-wrap gap-2">
+                                   {project.topics.map((topic) => (
+                                        <span class="text-xs text-zinc-500">#{topic}</span>
+                                   ))}
+                              </div>
+                         )}
                     </li>
                ))}
           </ul>
