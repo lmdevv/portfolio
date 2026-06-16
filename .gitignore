@@ -26,3 +26,9 @@ pnpm-debug.log*
 
 # agent workspace
 .opencode/
+/.direnv
+
+# devbox
+.devbox/
+devbox.json
+devbox.lock
