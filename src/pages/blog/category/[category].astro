@@ -1,25 +1,35 @@
 ---
-import H1 from "../../components/h1.astro";
-import { formatDate } from "../../lib/utils";
-import InfoLayout from "../../layouts/InfoLayout.astro";
+import H1 from "../../../components/h1.astro";
+import { formatDate } from "../../../lib/utils";
+import InfoLayout from "../../../layouts/InfoLayout.astro";
 import { getCollection } from "astro:content";
 
+export async function getStaticPaths() {
+    const categoryToSlug = (category: string) => category.toLowerCase().replaceAll(" ", "-");
+    const articles = await getCollection("articles");
+    const categories = [...new Set(articles.map((article) => article.data.category))];
+
+    return categories.map((category) => ({
+        params: { category: categoryToSlug(category) },
+        props: { category },
+    }));
+}
+
 const articles = await getCollection("articles");
-
 const categories = [...new Set(articles.map((article) => article.data.category))];
-
+const { category: selectedCategory } = Astro.props;
 const categoryToSlug = (category: string) => category.toLowerCase().replaceAll(" ", "-");
+
+const filteredArticles = articles.filter((article) => article.data.category === selectedCategory);
 ---
 
-<InfoLayout>
+<InfoLayout title={`${selectedCategory} Articles`}>
     <div class="p-4 sm:pt-8 sm:px-12 pb-20 min-h-dvh">
         <H1> Blog </H1>
 
         <ul class="mt-4 flex items-center gap-4">
             <li>
-                <a href="/blog" class={`w-fit px-4 py-1 text-sm bg-transparent rounded-full transition-all duration-300 ease-in-out ${
-                    "text-white bg-zinc-100/20 outline-2 outline-offset-2 outline-zinc-100/20"
-                }`}>
+                <a href="/blog" class="w-fit px-4 py-1 text-sm bg-transparent rounded-full transition-all duration-300 ease-in-out text-zinc-400 hover:text-zinc-300">
                     All
                 </a>
             </li>
@@ -30,7 +40,7 @@ const categoryToSlug = (category: string) => category.toLowerCase().replaceAll("
                         <a
                             href={`/blog/category/${categoryToSlug(category)}`}
                             class={`w-fit px-4 py-1 text-sm bg-transparent rounded-full transition-all duration-300 ease-in-out ${
-                                "text-zinc-400 hover:text-zinc-200"
+                                category === selectedCategory ? "text-white bg-zinc-100/20 outline-2 outline-offset-2 outline-zinc-100/20" : "text-zinc-400 hover:text-zinc-200"
                             }`}
                         >
                             {category}
@@ -42,7 +52,7 @@ const categoryToSlug = (category: string) => category.toLowerCase().replaceAll("
 
         <ul class="mt-4 space-y-6">
             {
-                articles.map((article) => (
+                filteredArticles.map((article) => (
                     <li>
                         <a
                             class="space-y-1 group"
