@@ -32,8 +32,8 @@ import AvailableForWork from "../components/available.astro";
 					<AvailableForWork className="py-4" />
 					<div class="mb-2 sm:mb-4 flex items-center justify-between">
 						<div class="flex items-center gap-4">
-							<Link href="/contact">Let's Connect</Link>
-							<Link href="/projects" variant="secondary">View Projects</Link>
+							<Link href="/contact" prefetch="load">Let's Connect</Link>
+							<Link href="/projects" variant="secondary" prefetch="load">View Projects</Link>
 						</div>
 
 						<Navigation client:load>
