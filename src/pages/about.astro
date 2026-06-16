@@ -6,31 +6,33 @@ import InfoLayout from "../layouts/InfoLayout.astro";
 <InfoLayout>
      <div class="p-4 sm:pt-8 sm:px-12 pb-20 min-h-dvh flex flex-col justify-between gap-32">
           <div class="space-y-4 sm:space-y-12">
-               <H1> Get to know Nikola </H1>
+               <H1> About Me </H1>
 
-               <p class="text-xl xl:text-2xl text-zinc-500 text-balance">
-                    <a href="https://en.wikipedia.org/wiki/Nikola_Tesla" target="_blank" class="underline underline-offset-4 decoration-zinc-400 hover:text-zinc-50 hover:decoration-zinc-200">
-                         Nikola Tesla
-                    </a>
-                    (1856-1943) was a Serbian-American inventor, engineer, and futurist
-                    best known for his pioneering work in electricity and electromagnetism.
-                    His innovations laid the foundation for modern alternating current
-                    (AC) power systems and many technologies still in use today.
-               </p>
+               <div class="flex flex-col sm:flex-row gap-8 items-start">
+                    <img src="/photo.jpg" alt="Luis Mario Agreda" class="w-32 h-32 sm:w-48 sm:h-48 rounded-lg object-cover border border-zinc-800" />
+
+                    <div class="space-y-6 text-xl xl:text-2xl text-zinc-400 text-balance">
+                         <p>
+                              Hi! I'm <strong class="text-zinc-200">Luis Mario Agreda</strong>, an aspiring Software Developer based in <strong class="text-zinc-200">Toronto, Ontario</strong>.
+                         </p>
+                         <p>
+                              I'm on a mission to build amazing things, and accidentally create even more amazing bugs.
+                              When I'm not coding, you'll catch me refactoring perfectly fine code just because it might be 0.1% more efficient.
+                              I'm all about solving problems and turning cool ideas into real, working stuff.
+                         </p>
+                    </div>
+               </div>
           </div>
 
           <div class="space-y-2 text-base sm:text-lg">
-               <h2 class="px-4 text-zinc-400 underline underline-offset-4 decoration-zinc-500">Achievements</h2>
+               <h2 class="px-4 text-zinc-400 underline underline-offset-4 decoration-zinc-500">Education</h2>
 
-               <ul class="px-4 text-zinc-400 list-disc list-outside">
-                    <li>Alternating Current (AC) System</li>
-                    <li>Tesla Coil</li>
-                    <li>Induction Motor</li>
-                    <li>Wireless Transmission</li>
-                    <li>Radio and Remote Control</li>
-                    <li>Hydroelectric Power at Niagara Falls</li>
-                    <li>X-Ray Imaging</li>
-               </ul>
+               <div class="px-4">
+                    <h3 class="text-zinc-200 font-medium">Advanced Diploma in Computer Programming and Analysis</h3>
+                    <p class="text-zinc-400">Seneca Polytechnic · Toronto, Canada</p>
+                    <p class="text-zinc-500 text-sm">2021 - 2024</p>
+                    <p class="text-zinc-400 mt-2">Focus on software development, databases, and full-stack development.</p>
+               </div>
           </div>
      </div>
 </InfoLayout>
