@@ -11,7 +11,7 @@ const projects = [
           topics: ["wxt", "indexeddb", "hotkeys"]
      },
      {
-          title: "Openpilot Compatibility Website",
+          title: "Openpilot Website",
           description: "A searchable vehicle compatibility database with URL-synced filters, make/year sorting, feature badges, and parsed support metadata generated from Openpilot vehicle data.",
           url: "https://github.com/lmdevv/openpilot-compatibility",
           homepage: "https://openpilot-compatibility-web.vercel.app/",
@@ -19,7 +19,7 @@ const projects = [
           topics: ["tanstack-router", "data-parsing", "vehicle-data"]
      },
      {
-          title: "Movie Recommendation System",
+          title: "Movie Recommender System",
           description: "A MovieLens-powered recommender that searches movies, visualizes rating distributions, and returns similar titles through a Streamlit app backed by Python data processing.",
           url: "https://github.com/lmdevv/movie-recommendation-system",
           homepage: "https://notflix.streamlit.app/",
@@ -52,7 +52,7 @@ const projects = [
           topics: ["gemini-api", "docx-generation", "browser-storage" ]
      },
      {
-          title: "committer",
+          title: "Committer",
           description: "A Go CLI/TUI that reads staged Git diffs, calls OpenRouter for commit-message suggestions, supports simple or detailed output, and copies results to the clipboard.",
           url: "https://github.com/lmdevv/committer",
           languages: ["Go", "Shell", "Git", "Nix"],
@@ -78,13 +78,8 @@ const projects = [
                     <li class="group p-4 rounded-lg border border-zinc-800 hover:border-zinc-700 transition-colors">
                          <div class="flex items-start justify-between mb-2">
                               <h2 class="text-lg text-zinc-100 font-medium group-hover:text-white">
-                                   <a href={project.url} target="_blank" rel="noopener noreferrer" class="flex items-center gap-2">
+                                   <a href={project.url} target="_blank" rel="noopener noreferrer">
                                         {project.title}
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-zinc-500 group-hover:text-zinc-300 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                                             <polyline points="15 3 21 3 21 9"/>
-                                             <line x1="10" y1="14" x2="21" y2="3"/>
-                                        </svg>
                                    </a>
                               </h2>
                                {project.homepage && (
