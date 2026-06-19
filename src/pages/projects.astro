@@ -1,6 +1,7 @@
 ---
 import H1 from "../components/h1.astro";
 import InfoLayout from "../layouts/InfoLayout.astro";
+import { IconBrandGithub, IconBuildingStore, IconWorldWww } from "@tabler/icons-react";
 
 const projects = [
      {
@@ -32,6 +33,7 @@ const projects = [
           url: "https://github.com/lmdevv/fragments",
           homepage: "https://github.com/lmdevv/fragments-ui",
           homepageLabel: "Frontend Repo",
+          homepageIcon: IconBrandGithub,
           languages: ["TypeScript", "React", "Express", "AWS Cognito"],
           topics: ["rest-api", "aws", "tdd"]
      },
@@ -48,6 +50,7 @@ const projects = [
           url: "https://github.com/lmdevv/cover-ai",
           homepage: "https://chromewebstore.google.com/detail/cover-ai/kjcafedikeandgbfhfnjkiimkhffhoco",
           homepageLabel: "Chrome Web Store",
+          homepageIcon: IconBuildingStore,
           languages: ["TypeScript", "React", "Chrome APIs", "Gemini"],
           topics: ["gemini-api", "docx-generation", "browser-storage" ]
      },
@@ -75,29 +78,36 @@ const projects = [
 
           <ul class="mt-4 sm:mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8">
                {projects.map((project) => (
-                    <li class="group p-4 rounded-lg border border-zinc-800 hover:border-zinc-700 transition-colors">
-                         <div class="flex items-start justify-between mb-2">
+                    <li class="group relative p-4 rounded-lg border border-zinc-800 hover:border-zinc-700 transition-colors">
+                         <a href={project.url} target="_blank" rel="noopener noreferrer" class="absolute inset-0 rounded-lg" aria-label={`Open ${project.title} GitHub repository`}>
+                              <span class="sr-only">Open {project.title} GitHub repository</span>
+                         </a>
+                         <div class="relative z-10 flex items-start justify-between mb-2 pointer-events-none">
                               <h2 class="text-lg text-zinc-100 font-medium group-hover:text-white">
-                                   <a href={project.url} target="_blank" rel="noopener noreferrer">
-                                        {project.title}
-                                   </a>
+                                   {project.title}
                               </h2>
-                               {project.homepage && (
-                                    <a href={project.homepage} target="_blank" rel="noopener noreferrer" class="text-xs text-zinc-500 hover:text-zinc-300">
-                                         {project.homepageLabel ?? "Live Demo"}
-                                    </a>
-                               )}
+                              {project.homepage && (() => {
+                                   const HomepageIcon = project.homepageIcon ?? IconWorldWww;
+                                   const homepageLabel = project.homepageLabel ?? "Live Demo";
+
+                                   return (
+                                        <a href={project.homepage} target="_blank" rel="noopener noreferrer" class="pointer-events-auto rounded-md p-1 text-zinc-500 transition-colors hover:text-zinc-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-300" aria-label={homepageLabel} title={homepageLabel}>
+                                             <HomepageIcon size={20} stroke={1.8} aria-hidden="true" />
+                                             <span class="sr-only">{homepageLabel}</span>
+                                        </a>
+                                   );
+                              })()}
                          </div>
-                         <p class="text-sm text-zinc-400 text-balance mb-3">{project.description}</p>
-                         <div class="flex flex-wrap gap-2 mb-2">
+                         <p class="relative z-10 pointer-events-none text-sm text-zinc-400 text-balance mb-3">{project.description}</p>
+                         <div class="relative z-10 pointer-events-none flex flex-wrap gap-2 mb-2">
                               {project.languages.map((lang) => (
-                                   <span class="text-xs px-2 py-1 rounded-full bg-zinc-800 text-zinc-400">{lang}</span>
+                                    <span class="text-xs px-2 py-1 rounded-full bg-zinc-800 text-zinc-400">{lang}</span>
                               ))}
                          </div>
                          {project.topics.length > 0 && (
-                              <div class="flex flex-wrap gap-2">
+                              <div class="relative z-10 pointer-events-none flex flex-wrap gap-2">
                                    {project.topics.map((topic) => (
-                                        <span class="text-xs text-zinc-500">#{topic}</span>
+                                         <span class="text-xs text-zinc-500">#{topic}</span>
                                    ))}
                               </div>
                          )}
