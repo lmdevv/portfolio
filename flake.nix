@@ -30,8 +30,8 @@
         {
           default = pkgs.mkShellNoCC {
             packages = with pkgs; [
-              nodejs
-              pnpm
+              nodejs_22
+              pnpm_10
             ];
           };
         }
