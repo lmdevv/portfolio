@@ -5,7 +5,8 @@ import ExternalLink from "./external-link.astro";
 const pathname = Astro.url.pathname;
 ---
 
-<footer class="py-4 px-4 sm:px-12 w-full fixed bottom-0 flex items-center gap-4 sm:gap-8 bg-zinc-900">
+<footer class="py-4 px-4 sm:px-12 w-full fixed bottom-0 flex items-center gap-4 sm:gap-8 bg-zinc-900 z-50">
+    <div class="absolute left-0 right-0 bottom-full h-10 bg-gradient-to-t from-zinc-900 via-zinc-900/55 to-zinc-900/0 pointer-events-none"></div>
     <div class="flex gap-1">
         <ExternalLink href="/" openNewTab={false}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" class="w-6 h-6 text-zinc-500 group-hover:text-zinc-100">
