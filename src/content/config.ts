@@ -7,7 +7,7 @@ const articles = defineCollection({
         title: z.string(),
         slug: z.string(),
         snippet: z.string(),
-        category: z.string(),
+        category: z.array(z.string()),
         pubDate: z.coerce.date(),
         readingDuration: z.number(),
         author: z.string().default('Luis Mario Agreda'),
