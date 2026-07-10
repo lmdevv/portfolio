@@ -7,7 +7,7 @@ import { getCollection } from "astro:content";
 export async function getStaticPaths() {
     const categoryToSlug = (category: string) => category.toLowerCase().replaceAll(" ", "-");
     const articles = await getCollection("articles");
-    const categories = [...new Set(articles.map((article) => article.data.category))];
+    const categories = [...new Set(articles.flatMap((article) => article.data.category))];
 
     return categories.map((category) => ({
         params: { category: categoryToSlug(category) },
@@ -16,11 +16,11 @@ export async function getStaticPaths() {
 }
 
 const articles = await getCollection("articles");
-const categories = [...new Set(articles.map((article) => article.data.category))];
+const categories = [...new Set(articles.flatMap((article) => article.data.category))];
 const { category: selectedCategory } = Astro.props;
 const categoryToSlug = (category: string) => category.toLowerCase().replaceAll(" ", "-");
 
-const filteredArticles = articles.filter((article) => article.data.category === selectedCategory);
+const filteredArticles = articles.filter((article) => article.data.category.includes(selectedCategory));
 ---
 
 <InfoLayout title={`${selectedCategory} Articles`}>
