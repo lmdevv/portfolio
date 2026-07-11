@@ -25,6 +25,7 @@ export default defineConfig({
       name: "Geist",
       cssVariable: "--font-geist",
       fallbacks: ["Inter", "sans-serif"],
+      display: "optional",
     }]
   },
 
