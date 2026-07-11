@@ -29,9 +29,7 @@ const allArticles = await getCollection("articles");
 
 const relatedArticles = allArticles.filter(
     (relatedArticle) =>
-        relatedArticle.data.category.some((category) =>
-            article.data.category.includes(category),
-        ) &&
+        relatedArticle.data.category === article.data.category &&
         relatedArticle.id !== article.id,
 );
 ---
