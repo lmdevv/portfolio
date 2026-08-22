@@ -1,0 +1,1 @@
+Skills are insane, they are too good, they are a completely necessary primitive, its not perfect, I didn't like them at first, but I have come around. But I have grown more unto them, it's not that they changed, they are still a sucky primitive that could improve
