@@ -3,4 +3,14 @@
 
 @theme inline {
   --font-sans: var(--font-geist);
+  --animate-countdown: countdown linear forwards;
+
+  @keyframes countdown {
+    from {
+      transform: scaleX(1);
+    }
+    to {
+      transform: scaleX(0);
+    }
+  }
 }

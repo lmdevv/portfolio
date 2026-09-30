@@ -10,6 +10,7 @@ export type Profile = {
   location: { city: string; country: string };
   availableForWork: boolean;
   site: string;
+  ssh: string;
   description: string;
   photo: { file: string; alt: string };
   bio: RichText[];
@@ -24,6 +25,7 @@ export const profile: Profile = {
   location: { city: "Miami, Florida", country: "United States" },
   availableForWork: true,
   site: "https://luismario.me",
+  ssh: "ssh luismario.me",
   description:
     "Luis Mario Agreda is an aspiring Software Developer based in Miami, Florida. Focused on building scalable systems, AI-powered solutions, and full-stack applications.",
   photo: { file: "photo.jpg", alt: "Luis Mario Agreda" },
