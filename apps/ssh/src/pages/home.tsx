@@ -26,7 +26,7 @@ export function HomePage() {
         <>
           {profile.availableForWork && <AvailableForWork />}
           <Actions
-            hint="← → choose · enter open · ? help"
+            hint="←→ choose · enter · m motion · ? help"
             actions={[
               { label: "Let's Connect", route: { page: "contact" }, primary: true },
               { label: "View Projects", route: { page: "projects" } },

@@ -8,20 +8,19 @@ type WarpOptions = RenderableOptions<WarpRenderable> & {
   scale?: number;
   animate?: boolean;
   fps?: number;
+  /** Distinct colors; fewer levels means fewer changed cells per frame and less SSH traffic. */
+  levels?: number;
 };
-
-/** Fewer distinct colors means fewer changed cells per frame, which keeps SSH traffic low. */
-const LEVELS = 28;
 
 function mix(a: RGBA, b: RGBA, t: number) {
   return RGBA.fromValues(a.r + (b.r - a.r) * t, a.g + (b.g - a.g) * t, a.b + (b.b - a.b) * t, 1);
 }
 
-function buildPalette(colors: readonly string[]) {
+function buildPalette(colors: readonly string[], levels: number) {
   const stops = colors.map((color) => RGBA.fromHex(color));
   if (stops.length === 1) stops.push(stops[0]!);
-  return Array.from({ length: LEVELS }, (_, level) => {
-    const position = (level / (LEVELS - 1)) * (stops.length - 1);
+  return Array.from({ length: levels }, (_, level) => {
+    const position = (level / (levels - 1)) * (stops.length - 1);
     const index = Math.min(Math.floor(position), stops.length - 2);
     return mix(stops[index]!, stops[index + 1]!, position - index);
   });
@@ -33,6 +32,7 @@ function buildPalette(colors: readonly string[]) {
  */
 export class WarpRenderable extends Renderable {
   private palette: RGBA[];
+  private levels: number;
   private speed: number;
   private swirl: number;
   private scale: number;
@@ -43,16 +43,17 @@ export class WarpRenderable extends Renderable {
 
   constructor(ctx: RenderContext, options: WarpOptions) {
     super(ctx, options);
-    this.palette = buildPalette(options.colors ?? ["#09090b", "#27272a", "#52525b"]);
+    this.levels = options.levels ?? 12;
+    this.palette = buildPalette(options.colors ?? ["#09090b", "#27272a", "#52525b"], this.levels);
     this.speed = options.speed ?? 0.4;
     this.swirl = options.swirl ?? 0.8;
     this.scale = options.scale ?? 1;
-    this.fps = options.fps ?? 12;
+    this.fps = options.fps ?? 6;
     this.animate = options.animate ?? true;
   }
 
   set colors(value: readonly string[]) {
-    this.palette = buildPalette(value);
+    this.palette = buildPalette(value, this.levels);
     this.requestRender();
   }
 
@@ -81,7 +82,7 @@ export class WarpRenderable extends Renderable {
       v += (this.swirl / i) * 1.6 * Math.cos(u * 0.9 - t * 0.8 + i * 2.3);
     }
     const value = 0.5 + 0.5 * Math.sin((u + v) * 0.7 + t * 0.5);
-    return this.palette[Math.min(LEVELS - 1, Math.floor(value * LEVELS))]!;
+    return this.palette[Math.min(this.levels - 1, Math.floor(value * this.levels))]!;
   }
 
   protected override renderSelf(buffer: OptimizedBuffer): void {

@@ -13,7 +13,9 @@ export function Hero(props: { top: ReactNode; bottom: ReactNode }) {
     <box width="100%" height="100%" backgroundColor={zinc[950]}>
       <warp
         colors={warpPalettes.hero}
-        speed={0.6}
+        speed={0.2}
+        fps={4}
+        levels={8}
         swirl={0.5}
         scale={0.3}
         animate={motion}
@@ -47,7 +49,8 @@ export type Action = { label: string; route: Route; primary?: boolean };
 
 /** A row of pill buttons, moved through with ←/→ (or h/l) and activated with enter or a click. */
 export function Actions(props: { actions: Action[]; hint?: string }) {
-  const { navigate } = useApp();
+  const { navigate, toast } = useApp();
+  const hint = toast ?? props.hint;
   const [focus, setFocus] = useState(0);
   const count = props.actions.length;
 
@@ -82,7 +85,7 @@ export function Actions(props: { actions: Action[]; hint?: string }) {
           );
         })}
       </box>
-      {props.hint && <text fg={zinc[500]}>{props.hint}</text>}
+      {hint && <text fg={toast ? zinc[100] : zinc[500]}>{hint}</text>}
     </box>
   );
 }

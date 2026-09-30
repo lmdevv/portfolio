@@ -31,10 +31,11 @@ export function InfoLayout(props: { children: ReactNode }) {
         {sidebar > 0 && (
           <warp
             colors={warpPalettes.sidebar}
-            speed={0.15}
+            speed={0.08}
             swirl={1.5}
             scale={0.5}
-            fps={8}
+            fps={4}
+            levels={10}
             animate={motion}
             width={sidebar}
             flexShrink={0}
