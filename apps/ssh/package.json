@@ -1,0 +1,23 @@
+{
+  "name": "@portfolio/ssh",
+  "private": true,
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "content": "bun scripts/generate-content.ts",
+    "dev": "bun scripts/generate-content.ts && bun src/main.tsx",
+    "dev:drafts": "bun scripts/generate-content.ts --drafts && bun src/main.tsx",
+    "typecheck": "bun scripts/generate-content.ts && tsc -p ."
+  },
+  "dependencies": {
+    "@opentui/core": "^0.5.12",
+    "@opentui/react": "^0.5.12",
+    "@portfolio/content": "workspace:*",
+    "react": "catalog:"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.4.2",
+    "@types/react": "catalog:",
+    "typescript": "catalog:"
+  }
+}
