@@ -52,7 +52,8 @@ export function App() {
     }
 
     if (helpOpen) {
-      if (key.name === "escape" || key.sequence === "?" || key.name === "return") setHelpOpen(false);
+      if (key.name === "escape" || key.sequence === "?" || key.name === "return")
+        setHelpOpen(false);
       return;
     }
 

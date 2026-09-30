@@ -46,7 +46,12 @@ export function ArticlePage(props: { slug: string }) {
               Related Articles
             </text>
             {related.map((other) => (
-              <box key={other.slug} flexDirection="column" marginBottom={1} onMouseDown={() => navigate({ page: "article", slug: other.slug })}>
+              <box
+                key={other.slug}
+                flexDirection="column"
+                marginBottom={1}
+                onMouseDown={() => navigate({ page: "article", slug: other.slug })}
+              >
                 <text fg={zinc[50]}>
                   <u>{other.title}</u>
                 </text>

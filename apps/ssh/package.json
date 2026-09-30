@@ -1,8 +1,8 @@
 {
   "name": "@portfolio/ssh",
+  "version": "0.0.1",
   "private": true,
   "type": "module",
-  "version": "0.0.1",
   "scripts": {
     "content": "bun scripts/generate-content.ts",
     "dev": "bun scripts/generate-content.ts && bun src/main.tsx",

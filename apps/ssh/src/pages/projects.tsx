@@ -10,7 +10,12 @@ import { theme } from "../theme.ts";
 
 const linkGlyph: Record<ProjectLinkKind, string> = { web: "◎", github: "◆", store: "▣" };
 
-function ProjectCard(props: { project: Project; index: number; selected: boolean; onSelect: () => void }) {
+function ProjectCard(props: {
+  project: Project;
+  index: number;
+  selected: boolean;
+  onSelect: () => void;
+}) {
   const { project, selected } = props;
 
   return (
@@ -58,11 +63,15 @@ export function ProjectsPage() {
   const { index, setIndex, onKey, scroll } = useListSelection(projects.length, "project");
 
   const rows: Project[][] = [];
-  for (let start = 0; start < projects.length; start += columns) rows.push(projects.slice(start, start + columns));
+  for (let start = 0; start < projects.length; start += columns)
+    rows.push(projects.slice(start, start + columns));
 
   return (
     <InfoLayout>
-      <PageTitle title="Projects" subtitle="j/k select · y copy repo · Y copy live link · links are clickable" />
+      <PageTitle
+        title="Projects"
+        subtitle="j/k select · y copy repo · Y copy live link · links are clickable"
+      />
       <ScrollPage
         ref={scroll}
         lineKeys={false}
@@ -72,8 +81,10 @@ export function ProjectsPage() {
           if (!project) return;
           if (key.name === "y" && key.shift && project.homepage) copy(project.homepage.url);
           else if (key.name === "y" || key.name === "return") copy(project.url);
-          else if (columns === 2 && (key.name === "l" || key.name === "right")) setIndex(Math.min(projects.length - 1, index + 1));
-          else if (columns === 2 && (key.name === "h" || key.name === "left")) setIndex(Math.max(0, index - 1));
+          else if (columns === 2 && (key.name === "l" || key.name === "right"))
+            setIndex(Math.min(projects.length - 1, index + 1));
+          else if (columns === 2 && (key.name === "h" || key.name === "left"))
+            setIndex(Math.max(0, index - 1));
         }}
       >
         {rows.map((row, rowIndex) => (

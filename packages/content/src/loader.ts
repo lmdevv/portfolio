@@ -36,7 +36,9 @@ function resolveImages(body: string, file: string): Record<string, string> {
 
   for (const [, src] of body.matchAll(imagePattern)) {
     if (!src || /^[a-z]+:/i.test(src) || src in images) continue;
-    const found = searchRoots.map((root) => resolve(root, src)).find((candidate) => existsSync(candidate));
+    const found = searchRoots
+      .map((root) => resolve(root, src))
+      .find((candidate) => existsSync(candidate));
     if (found) images[src] = found;
   }
 
@@ -50,7 +52,9 @@ function loadFile(file: string, draft: boolean): LoadedArticle | string {
 
   const parsed = articleSchema.safeParse(parseYaml(match[1] ?? "") ?? {});
   if (!parsed.success) {
-    return parsed.error.issues.map((issue) => `${issue.path.join(".")}: ${issue.message}`).join(", ");
+    return parsed.error.issues
+      .map((issue) => `${issue.path.join(".")}: ${issue.message}`)
+      .join(", ");
   }
 
   const body = raw.slice(match[0].length);

@@ -19,7 +19,10 @@ export function Footer() {
           const label = item.page === "home" ? "⌂ /" : item.label;
           return (
             <box key={item.page} onMouseDown={() => navigate({ page: item.page })}>
-              <text fg={isActive ? theme.strong : theme.subtle} attributes={isActive ? TextAttributes.BOLD : 0}>
+              <text
+                fg={isActive ? theme.strong : theme.subtle}
+                attributes={isActive ? TextAttributes.BOLD : 0}
+              >
                 <span fg={isActive && compact ? theme.strong : theme.faint}>{item.key}</span>
                 {!compact || isActive ? ` ${label}` : ""}
               </text>
@@ -27,7 +30,9 @@ export function Footer() {
           );
         })}
       </box>
-      <text fg={toast ? theme.strong : theme.faint}>{toast ?? (compact ? "? help" : "? help  q quit")}</text>
+      <text fg={toast ? theme.strong : theme.faint}>
+        {toast ?? (compact ? "? help" : "? help  q quit")}
+      </text>
     </box>
   );
 }

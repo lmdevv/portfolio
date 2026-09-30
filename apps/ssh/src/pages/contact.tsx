@@ -7,7 +7,12 @@ import { ScrollPage } from "../components/scroll-page.tsx";
 import { useListSelection } from "../components/selection.ts";
 import { theme } from "../theme.ts";
 
-const glyphs: Record<ContactLink["kind"], string> = { email: "@", github: "gh", linkedin: "in", x: "x" };
+const glyphs: Record<ContactLink["kind"], string> = {
+  email: "@",
+  github: "gh",
+  linkedin: "in",
+  x: "x",
+};
 const links = [contact.email, ...contact.socials];
 
 export function ContactPage() {
@@ -41,11 +46,17 @@ export function ContactPage() {
                 marginBottom={link.kind === "email" ? 2 : 1}
                 onMouseDown={() => setIndex(linkIndex)}
               >
-                <text fg={selected ? theme.bright : theme.subtle} attributes={selected ? TextAttributes.BOLD : 0}>
+                <text
+                  fg={selected ? theme.bright : theme.subtle}
+                  attributes={selected ? TextAttributes.BOLD : 0}
+                >
                   {selected ? "› " : "  "}
-                  <span fg={theme.muted}>{glyphs[link.kind].padEnd(2)}</span> <a href={link.href}>{link.label}</a>
+                  <span fg={theme.muted}>{glyphs[link.kind].padEnd(2)}</span>{" "}
+                  <a href={link.href}>{link.label}</a>
                   <span fg={theme.faint}> ↗</span>
-                  {selected && <span fg={theme.faint}>{`   ${displayUrl(link.href)} · enter to copy`}</span>}
+                  {selected && (
+                    <span fg={theme.faint}>{`   ${displayUrl(link.href)} · enter to copy`}</span>
+                  )}
                 </text>
               </box>
             );

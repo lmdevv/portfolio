@@ -8,7 +8,8 @@ export const email = "luis.mario.agreda@outlook.com";
 
 export const contact = {
   heading: "Let's Connect",
-  intro: "Interested in working together or just want to chat? Reach out through any of the channels below.",
+  intro:
+    "Interested in working together or just want to chat? Reach out through any of the channels below.",
   email: { kind: "email", label: email, href: `mailto:${email}` } satisfies ContactLink,
   socials: [
     { kind: "github", label: "GitHub", href: "https://github.com/lmdevv" },

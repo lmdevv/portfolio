@@ -58,7 +58,9 @@ for (const target of requested) {
 
   if (!result.success) {
     for (const log of result.logs) console.error(log);
-    console.error(`\nFailed to build ${target}. If the native package is missing, run \`pnpm install\` so`);
+    console.error(
+      `\nFailed to build ${target}. If the native package is missing, run \`pnpm install\` so`,
+    );
     console.error("pnpm fetches it (see supportedArchitectures in pnpm-workspace.yaml).");
     process.exit(1);
   }

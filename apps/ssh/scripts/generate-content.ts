@@ -20,7 +20,9 @@ function importImage(path: string) {
   if (!id) {
     id = `image${imageIds.size}`;
     imageIds.set(path, id);
-    imports.push(`import ${id} from ${JSON.stringify(relative(outDir, path))} with { type: "file" };`);
+    imports.push(
+      `import ${id} from ${JSON.stringify(relative(outDir, path))} with { type: "file" };`,
+    );
   }
   return id;
 }
@@ -49,5 +51,7 @@ ${entries.join("\n")}
 mkdirSync(outDir, { recursive: true });
 writeFileSync(outFile, source);
 
-console.log(`content: ${articles.length} article(s)${drafts ? " including drafts" : ""}, ${imageIds.size} image(s)`);
+console.log(
+  `content: ${articles.length} article(s)${drafts ? " including drafts" : ""}, ${imageIds.size} image(s)`,
+);
 for (const { file, reason } of skipped) console.log(`content: skipped ${file} (${reason})`);

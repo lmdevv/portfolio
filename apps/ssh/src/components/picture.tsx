@@ -60,7 +60,13 @@ export function Picture(props: PictureProps) {
   return (
     <box flexDirection="column" flexShrink={0} alignSelf="flex-start">
       {!image ? (
-        <box width={width} height={height} justifyContent="center" alignItems="center" backgroundColor={theme.surface}>
+        <box
+          width={width}
+          height={height}
+          justifyContent="center"
+          alignItems="center"
+          backgroundColor={theme.surface}
+        >
           <text fg={theme.subtle}>loading image…</text>
         </box>
       ) : imageMode === "ascii" ? (

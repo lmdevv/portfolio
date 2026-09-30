@@ -64,11 +64,23 @@ export function Actions(props: { actions: Action[]; hint?: string }) {
   });
 
   return (
-    <box flexDirection="row" justifyContent="space-between" alignItems="flex-end" flexWrap="wrap" rowGap={1}>
+    <box
+      flexDirection="row"
+      justifyContent="space-between"
+      alignItems="flex-end"
+      flexWrap="wrap"
+      rowGap={1}
+    >
       <box flexDirection="row" flexWrap="wrap" gap={1}>
         {props.actions.map((action, index) => {
           const focused = index === focus;
-          const bg = action.primary ? (focused ? zinc[50] : zinc[300]) : focused ? zinc[700] : undefined;
+          const bg = action.primary
+            ? focused
+              ? zinc[50]
+              : zinc[300]
+            : focused
+              ? zinc[700]
+              : undefined;
           const fg = action.primary ? zinc[950] : focused ? zinc[50] : zinc[200];
           return (
             <box

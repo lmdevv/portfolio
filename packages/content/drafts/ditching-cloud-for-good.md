@@ -9,6 +9,4 @@ snippet: ""
 
 # Ditching every service
 
-
-
 ## The rabit hole begins..

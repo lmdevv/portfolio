@@ -33,7 +33,11 @@ export function ArticleMeta(props: { article: Article; author?: boolean }) {
 function EmptyState() {
   return (
     <box flexDirection="column" marginTop={1}>
-      <text fg={theme.faint}>{"  ┌────────────────────┐\n  │ ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔   │\n  │ ▔▔▔▔▔▔▔▔▔▔▔        │\n  │ ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔    │\n  │ ▔▔▔▔▔▔▔ ▌          │\n  └────────────────────┘"}</text>
+      <text fg={theme.faint}>
+        {
+          "  ┌────────────────────┐\n  │ ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔   │\n  │ ▔▔▔▔▔▔▔▔▔▔▔        │\n  │ ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔    │\n  │ ▔▔▔▔▔▔▔ ▌          │\n  └────────────────────┘"
+        }
+      </text>
       <text fg={theme.muted} marginTop={1}>
         Nothing published yet. Posts are on the way.
       </text>
@@ -62,7 +66,12 @@ export function BlogPage(props: { category?: string }) {
           {tabs.map((name, tabIndex) => {
             const active = tabIndex === tab;
             return (
-              <box key={name} paddingX={2} backgroundColor={active ? zinc[700] : undefined} onMouseDown={() => switchTab(tabIndex)}>
+              <box
+                key={name}
+                paddingX={2}
+                backgroundColor={active ? zinc[700] : undefined}
+                onMouseDown={() => switchTab(tabIndex)}
+              >
                 <text fg={active ? theme.bright : theme.muted}>{name}</text>
               </box>
             );
@@ -100,7 +109,11 @@ export function BlogPage(props: { category?: string }) {
                 paddingLeft={1}
                 border={["left"]}
                 borderColor={selected ? theme.muted : theme.bg}
-                onMouseDown={() => (selected ? navigate({ page: "article", slug: article.slug }) : setIndex(articleIndex))}
+                onMouseDown={() =>
+                  selected
+                    ? navigate({ page: "article", slug: article.slug })
+                    : setIndex(articleIndex)
+                }
               >
                 <text fg={selected ? theme.bright : theme.text} attributes={TextAttributes.BOLD}>
                   {article.title}

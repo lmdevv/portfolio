@@ -1,4 +1,11 @@
-import { NativeImage, Renderable, RGBA, type OptimizedBuffer, type RenderableOptions, type RenderContext } from "@opentui/core";
+import {
+  NativeImage,
+  Renderable,
+  RGBA,
+  type OptimizedBuffer,
+  type RenderableOptions,
+  type RenderContext,
+} from "@opentui/core";
 import { extend } from "@opentui/react";
 
 type AsciiImageOptions = RenderableOptions<AsciiImageRenderable> & {
@@ -9,7 +16,14 @@ type AsciiImageOptions = RenderableOptions<AsciiImageRenderable> & {
 const RAMP = " .'`^\",:;Il!i><~+_-?][}{1)(|/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
 const TRANSPARENT = RGBA.fromValues(0, 0, 0, 0);
 
-type Grid = { cols: number; rows: number; left: number; top: number; chars: string[]; colors: RGBA[] };
+type Grid = {
+  cols: number;
+  rows: number;
+  left: number;
+  top: number;
+  chars: string[];
+  colors: RGBA[];
+};
 
 /**
  * Renders an image as character-ramp ASCII art. Works on every terminal, including ones that
@@ -61,7 +75,8 @@ export class AsciiImageRenderable extends Renderable {
     const colors: RGBA[] = [];
 
     const luminanceAt = (offset: number) =>
-      ((0.2126 * data[offset]! + 0.7152 * data[offset + 1]! + 0.0722 * data[offset + 2]!) / 255) * (data[offset + 3]! / 255);
+      ((0.2126 * data[offset]! + 0.7152 * data[offset + 1]! + 0.0722 * data[offset + 2]!) / 255) *
+      (data[offset + 3]! / 255);
 
     // Stretch contrast so low-dynamic-range photos still use the whole ramp.
     let low = 1;
@@ -86,13 +101,25 @@ export class AsciiImageRenderable extends Renderable {
         colors.push(
           this.tinted
             ? RGBA.fromValues(0.35 + r * 0.65, 0.35 + g * 0.65, 0.35 + b * 0.65, 1)
-            : RGBA.fromValues(0.45 + luminance * 0.55, 0.45 + luminance * 0.55, 0.47 + luminance * 0.53, 1),
+            : RGBA.fromValues(
+                0.45 + luminance * 0.55,
+                0.45 + luminance * 0.55,
+                0.47 + luminance * 0.53,
+                1,
+              ),
         );
       }
     }
     resized.dispose();
 
-    return { cols, rows, left: Math.floor((width - cols) / 2), top: Math.floor((height - rows) / 2), chars, colors };
+    return {
+      cols,
+      rows,
+      left: Math.floor((width - cols) / 2),
+      top: Math.floor((height - rows) / 2),
+      chars,
+      colors,
+    };
   }
 
   protected override renderSelf(buffer: OptimizedBuffer): void {
@@ -107,7 +134,13 @@ export class AsciiImageRenderable extends Renderable {
     for (let y = 0; y < grid.rows; y++) {
       for (let x = 0; x < grid.cols; x++) {
         const index = y * grid.cols + x;
-        buffer.setCell(this.x + grid.left + x, this.y + grid.top + y, grid.chars[index]!, grid.colors[index]!, TRANSPARENT);
+        buffer.setCell(
+          this.x + grid.left + x,
+          this.y + grid.top + y,
+          grid.chars[index]!,
+          grid.colors[index]!,
+          TRANSPARENT,
+        );
       }
     }
   }

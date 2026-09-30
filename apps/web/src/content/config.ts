@@ -4,8 +4,8 @@ import { articleSchema } from "@portfolio/content";
 import { articlesDir } from "@portfolio/content/paths";
 
 const articles = defineCollection({
-    loader: glob({ pattern: ["**/*.md", "**/*.mdx"], base: articlesDir }),
-    schema: articleSchema,
+  loader: glob({ pattern: ["**/*.md", "**/*.mdx"], base: articlesDir }),
+  schema: articleSchema,
 });
 
 export const collections = { articles };

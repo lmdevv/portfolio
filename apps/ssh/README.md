@@ -6,14 +6,14 @@ to be served over SSH.
 
 ## Scripts
 
-| Script | What it does |
-| --- | --- |
-| `content` | Snapshot published posts from `@portfolio/content` into `src/generated/content.ts` |
-| `dev` | `content`, then run `src/main.tsx` from source with Bun |
-| `dev:drafts` | Same, including `packages/content/drafts` |
-| `build` | `content`, then compile `dist/portfolio-<os>-<arch>` for this machine |
-| `build:all` | `content`, then compile linux, macOS, and Windows (`.exe`), x64 + arm64 |
-| `typecheck` | `content`, then `tsc` |
+| Script       | What it does                                                                       |
+| ------------ | ---------------------------------------------------------------------------------- |
+| `content`    | Snapshot published posts from `@portfolio/content` into `src/generated/content.ts` |
+| `dev`        | `content`, then run `src/main.tsx` from source with Bun                            |
+| `dev:drafts` | Same, including `packages/content/drafts`                                          |
+| `build`      | `content`, then compile `dist/portfolio-<os>-<arch>` for this machine              |
+| `build:all`  | `content`, then compile linux, macOS, and Windows (`.exe`), x64 + arm64            |
+| `typecheck`  | `content`, then `tsc`                                                              |
 
 Arguments after `--` reach the app, e.g. `pnpm --filter @portfolio/ssh dev -- /blog --images ascii`.
 `bun scripts/build.ts --target linux-x64 --outdir out` compiles one target from whatever
@@ -29,18 +29,18 @@ portfolio [path] [--images auto|blocks|ascii|alt] [--[no-]motion]
 or a bare post slug. When the binary runs as an sshd `ForceCommand`, it reads
 `SSH_ORIGINAL_COMMAND`, so `ssh -t host /blog` opens the blog.
 
-| Key | Action |
-| --- | --- |
-| `1`-`6`, `tab` / `shift+tab` | switch pages |
-| `j` `k` / arrows | scroll or move the selection |
-| `h` `l` / arrows | buttons on the home page, categories on the blog |
-| `enter` | open the selected item or copy its link |
-| `y` / `Y` | copy the repo / live link (OSC 52, works over SSH) |
-| `i` | cycle image mode |
-| `m` | toggle motion |
-| `esc` / `backspace` | back |
-| `?` | help |
-| `q` / `ctrl+c` | quit |
+| Key                          | Action                                             |
+| ---------------------------- | -------------------------------------------------- |
+| `1`-`6`, `tab` / `shift+tab` | switch pages                                       |
+| `j` `k` / arrows             | scroll or move the selection                       |
+| `h` `l` / arrows             | buttons on the home page, categories on the blog   |
+| `enter`                      | open the selected item or copy its link            |
+| `y` / `Y`                    | copy the repo / live link (OSC 52, works over SSH) |
+| `i`                          | cycle image mode                                   |
+| `m`                          | toggle motion                                      |
+| `esc` / `backspace`          | back                                               |
+| `?`                          | help                                               |
+| `q` / `ctrl+c`               | quit                                               |
 
 ## Images
 

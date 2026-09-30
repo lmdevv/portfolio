@@ -16,7 +16,14 @@ export function AboutPage() {
       <PageTitle title="About Me" />
       <ScrollPage>
         <box flexDirection={stacked ? "column" : "row"} gap={stacked ? 1 : 4}>
-          <Picture path={photoPath} alt={profile.photo.alt} width={photoWidth} cellAspect={2} fit="cover" caption={false} />
+          <Picture
+            path={photoPath}
+            alt={profile.photo.alt}
+            width={photoWidth}
+            cellAspect={2}
+            fit="cover"
+            caption={false}
+          />
           <box flexDirection="column" gap={1} flexShrink={1} maxWidth={80}>
             {profile.bio.map((paragraph, index) => (
               <RichText key={index} value={paragraph} />

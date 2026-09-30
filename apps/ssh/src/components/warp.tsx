@@ -1,4 +1,10 @@
-import { Renderable, RGBA, type OptimizedBuffer, type RenderableOptions, type RenderContext } from "@opentui/core";
+import {
+  Renderable,
+  RGBA,
+  type OptimizedBuffer,
+  type RenderableOptions,
+  type RenderContext,
+} from "@opentui/core";
 import { extend } from "@opentui/react";
 
 type WarpOptions = RenderableOptions<WarpRenderable> & {

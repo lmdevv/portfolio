@@ -53,10 +53,14 @@ export function parseRoute(input: string | undefined): Route {
         return category ? { page: "blog", category } : { page: "not-found", path: `/${path}` };
       }
       const slug = rest.join("/");
-      return findArticle(slug) ? { page: "article", slug } : { page: "not-found", path: `/${path}` };
+      return findArticle(slug)
+        ? { page: "article", slug }
+        : { page: "not-found", path: `/${path}` };
     }
     default:
-      return findArticle(path) ? { page: "article", slug: path } : { page: "not-found", path: `/${path}` };
+      return findArticle(path)
+        ? { page: "article", slug: path }
+        : { page: "not-found", path: `/${path}` };
   }
 }
 

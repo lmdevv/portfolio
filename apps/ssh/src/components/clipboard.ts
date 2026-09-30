@@ -17,5 +17,8 @@ export function useCopy() {
 }
 
 export function displayUrl(url: string) {
-  return url.replace(/^mailto:/, "").replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
+  return url
+    .replace(/^mailto:/, "")
+    .replace(/^https?:\/\/(www\.)?/, "")
+    .replace(/\/$/, "");
 }

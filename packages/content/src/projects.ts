@@ -23,7 +23,11 @@ export const projects: Project[] = [
     description:
       "A searchable vehicle compatibility database with URL-synced filters, make/year sorting, feature badges, and parsed support metadata generated from Openpilot vehicle data.",
     url: "https://github.com/lmdevv/openpilot-compatibility",
-    homepage: { url: "https://openpilot-compatibility-web.vercel.app/", label: "Live Demo", kind: "web" },
+    homepage: {
+      url: "https://openpilot-compatibility-web.vercel.app/",
+      label: "Live Demo",
+      kind: "web",
+    },
     languages: ["TypeScript", "React", "Data Aggregation"],
     topics: ["tanstack-router", "data-parsing", "vehicle-data"],
   },
@@ -49,7 +53,11 @@ export const projects: Project[] = [
     description:
       "A full-stack fragments service with a TypeScript Express API, React dashboard, AWS Cognito auth, S3/DynamoDB storage, content conversion, Docker, and integration tests.",
     url: "https://github.com/lmdevv/fragments",
-    homepage: { url: "https://github.com/lmdevv/fragments-ui", label: "Frontend Repo", kind: "github" },
+    homepage: {
+      url: "https://github.com/lmdevv/fragments-ui",
+      label: "Frontend Repo",
+      kind: "github",
+    },
     languages: ["TypeScript", "React", "Express", "AWS Cognito"],
     topics: ["rest-api", "aws", "tdd"],
   },

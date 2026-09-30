@@ -1,6 +1,15 @@
 import type { KeyEvent } from "@opentui/core";
 import { useKeyboard } from "@opentui/react";
-import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import type { Route } from "./router.ts";
 
 /**
@@ -90,7 +99,18 @@ export function AppProvider(props: { initialRoute: Route; options: Options; chil
       helpOpen,
       setHelpOpen,
     }),
-    [history, navigate, back, imageMode, cycleImageMode, motion, toggleMotion, toast, flash, helpOpen],
+    [
+      history,
+      navigate,
+      back,
+      imageMode,
+      cycleImageMode,
+      motion,
+      toggleMotion,
+      toast,
+      flash,
+      helpOpen,
+    ],
   );
 
   return <AppContext.Provider value={value}>{props.children}</AppContext.Provider>;

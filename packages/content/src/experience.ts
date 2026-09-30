@@ -29,7 +29,8 @@ export const experiences: Experience[] = [
     position: "Research Assistant",
     location: "Toronto, Ontario, Canada · Hybrid",
     period: "2024 - 2025",
-    description: "Developed scalable OCR pipelines and production-ready APIs for an insurance tech project.",
+    description:
+      "Developed scalable OCR pipelines and production-ready APIs for an insurance tech project.",
     responsibilities: [
       "Built an end-to-end OCR document parsing pipeline using PyTorch and transformer models.",
       "Processed 200-300 daily documents with a scalable architecture.",

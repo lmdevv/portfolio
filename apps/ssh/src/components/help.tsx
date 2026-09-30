@@ -36,7 +36,15 @@ export function HelpOverlay() {
   const { imageMode, motion } = useApp();
 
   return (
-    <box position="absolute" top={0} left={0} width="100%" height="100%" justifyContent="center" alignItems="center">
+    <box
+      position="absolute"
+      top={0}
+      left={0}
+      width="100%"
+      height="100%"
+      justifyContent="center"
+      alignItems="center"
+    >
       <box
         border
         borderStyle="rounded"

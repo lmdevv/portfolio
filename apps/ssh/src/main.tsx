@@ -45,9 +45,17 @@ if (!imageModes.includes(imageMode)) {
 }
 
 // The animated warp costs roughly 50-90 KB/s of terminal output, so remote sessions start still.
-const overSsh = Boolean(process.env.SSH_CONNECTION || process.env.SSH_CLIENT || process.env.SSH_TTY);
+const overSsh = Boolean(
+  process.env.SSH_CONNECTION || process.env.SSH_CLIENT || process.env.SSH_TTY,
+);
 const motionEnv = process.env.PORTFOLIO_MOTION;
-const motion = values["no-motion"] ? false : values.motion ? true : motionEnv ? motionEnv !== "0" : !overSsh;
+const motion = values["no-motion"]
+  ? false
+  : values.motion
+    ? true
+    : motionEnv
+      ? motionEnv !== "0"
+      : !overSsh;
 const initialRoute = parseRoute(positionals[0] ?? process.env.SSH_ORIGINAL_COMMAND);
 
 const renderer = await createCliRenderer({

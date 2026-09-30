@@ -11,7 +11,12 @@ function isImageOnly(token: Token): token is Token & { tokens: Token[] } {
   const children = token.tokens as Token[];
   return (
     children.some((child) => child.type === "image") &&
-    children.every((child) => child.type === "image" || child.type === "br" || (child.type === "text" && !child.raw.trim()))
+    children.every(
+      (child) =>
+        child.type === "image" ||
+        child.type === "br" ||
+        (child.type === "text" && !child.raw.trim()),
+    )
   );
 }
 
@@ -31,7 +36,8 @@ function toBlocks(body: string): Block[] {
     if (isImageOnly(token)) {
       flush();
       for (const child of token.tokens) {
-        if (child.type === "image") blocks.push({ kind: "image", src: child.href, alt: child.text });
+        if (child.type === "image")
+          blocks.push({ kind: "image", src: child.href, alt: child.text });
       }
     } else {
       pending += token.raw;
@@ -49,7 +55,12 @@ export function ArticleBody(props: { article: Article; width: number }) {
     <box flexDirection="column" gap={1} width={props.width}>
       {blocks.map((block, index) =>
         block.kind === "markdown" ? (
-          <markdown key={index} content={block.content} syntaxStyle={markdownStyle} width={props.width} />
+          <markdown
+            key={index}
+            content={block.content}
+            syntaxStyle={markdownStyle}
+            width={props.width}
+          />
         ) : (
           <Picture
             key={index}

@@ -13,5 +13,7 @@ export function findArticle(slug: string) {
 }
 
 export function relatedArticles(article: Article) {
-  return articles.filter((other) => other.category === article.category && other.slug !== article.slug);
+  return articles.filter(
+    (other) => other.category === article.category && other.slug !== article.slug,
+  );
 }
