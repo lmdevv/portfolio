@@ -64,3 +64,9 @@ schema are skipped with a warning.
 The warp backgrounds redraw a few times a second, which costs roughly 40-90 KB/s over SSH. Motion
 therefore starts off when `SSH_CONNECTION`, `SSH_CLIENT`, or `SSH_TTY` is set; `m`, `--motion`, or
 `PORTFOLIO_MOTION=1` turn it on.
+
+## Deployment
+
+The public SSH service and GitHub Actions deployment are documented in
+[deploy/ssh](../../deploy/ssh/README.md). Pushes to `master` build and deploy the Linux client;
+Cloudflare Pages separately deploys the website from the same push.

@@ -33,6 +33,7 @@
               nodejs_22
               pnpm_10
               bun
+              (python3.withPackages (pythonPackages: [ pythonPackages.asyncssh ]))
             ];
           };
         }
