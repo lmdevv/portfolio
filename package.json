@@ -9,9 +9,16 @@
     "dev:ssh": "pnpm --filter @portfolio/ssh dev",
     "dev:ssh:drafts": "pnpm --filter @portfolio/ssh dev:drafts",
     "build:ssh": "pnpm --filter @portfolio/ssh build",
-    "typecheck": "pnpm -r --if-present typecheck"
+    "typecheck": "pnpm -r --if-present typecheck",
+    "lint": "oxlint --deny-warnings .",
+    "lint:fix": "oxlint --fix --deny-warnings .",
+    "format": "oxfmt --write .",
+    "format:check": "oxfmt --check .",
+    "check": "pnpm lint && pnpm format:check && pnpm typecheck"
   },
   "devDependencies": {
+    "oxfmt": "0.71.0",
+    "oxlint": "1.86.0",
     "typescript": "catalog:"
   }
 }
