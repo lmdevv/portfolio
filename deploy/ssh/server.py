@@ -173,7 +173,9 @@ class PortfolioSession(asyncssh.SSHServerSession):
 
 class PortfolioServer(asyncssh.SSHServer):
     def begin_auth(self, username):
-        return username != "portfolio"
+        # The SSH username is only a client label. Every session runs the same
+        # portfolio process under the service's fixed, unprivileged OS user.
+        return False
 
     def session_requested(self):
         if len(sessions) >= MAX_SESSIONS:

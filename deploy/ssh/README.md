@@ -4,14 +4,15 @@ The website deploys through Cloudflare Pages' GitHub integration on every push t
 The GitHub Actions workflow checks both clients, builds the portable Linux x64 TUI, and deploys
 it to Compute Engine through IAP. GitHub authenticates using OIDC; no service account key is stored.
 
-The public service listens on IPv6 port 22. Only `portfolio` can connect, without a password or
-individual SSH key. Every terminal session launches the portfolio binary. Commands are passed as
+The public service listens on IPv6 port 22 and accepts any SSH username without a password or
+individual SSH key, so visitors can use their client's default username. Every terminal session
+launches the portfolio binary under the same unprivileged service user. Commands are passed as
 route text, never executed by a shell. File transfers, forwarding, and nonterminal sessions are
 rejected. Real administrative SSH listens on private IPv4 and is reachable through IAP.
 
 ```sh
-ssh portfolio@ssh.luismario.me
-ssh -t portfolio@ssh.luismario.me /blog
+ssh ssh.luismario.me
+ssh -t ssh.luismario.me /blog
 ```
 
 Visitors need IPv6 connectivity. The service defaults to four simultaneous sessions, ten minutes

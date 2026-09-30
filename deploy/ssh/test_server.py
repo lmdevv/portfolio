@@ -58,9 +58,20 @@ class PublicSSHTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(result.exit_status, 0)
         self.assertIn("input=q", result.stdout)
 
-    async def test_unknown_user_is_rejected(self):
-        with self.assertRaises(asyncssh.PermissionDenied):
-            await self.connect("root")
+    async def test_any_username_gets_only_the_portfolio(self):
+        for username in ("visitor", "root"):
+            with self.subTest(username=username):
+                connection = await self.connect(username)
+                process = await connection.create_process("/blog", term_type="xterm-256color")
+                output = await asyncio.wait_for(process.stdout.readline(), 3)
+                self.assertEqual(output.strip(), "route=/blog")
+                process.stdin.write("q\n")
+                result = await asyncio.wait_for(process.wait(), 3)
+                self.assertEqual(result.exit_status, 0)
+                with self.assertRaises(asyncssh.Error):
+                    await connection.start_sftp_client()
+                with self.assertRaises(asyncssh.ChannelOpenError):
+                    await connection.open_connection("127.0.0.1", 22)
 
     async def test_nonterminal_sftp_and_forwarding_are_rejected(self):
         connection = await self.connect()
