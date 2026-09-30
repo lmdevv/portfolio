@@ -52,4 +52,6 @@ checks remain enabled in both apps.
 [Oxc's Astro support](https://oxc.rs/compatibility.html) is currently limited: Oxlint checks
 JavaScript/TypeScript script regions in `.astro` files without template linting, and Oxfmt
 skips `.astro` files because Astro formatting is not supported yet. Type checking remains
-a separate step; `pnpm typecheck` runs the checks declared by each workspace package.
+a separate step; `pnpm typecheck` checks the web app with `astro check` (including `.astro`
+and React components), and the SSH app and shared content with TypeScript. To check only
+the web app, run `pnpm --filter @portfolio/web typecheck`.
