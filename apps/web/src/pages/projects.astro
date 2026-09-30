@@ -2,81 +2,13 @@
 import H1 from "../components/h1.astro";
 import InfoLayout from "../layouts/InfoLayout.astro";
 import { IconBrandGithub, IconBuildingStore, IconWorldWww } from "@tabler/icons-react";
+import { projects, type ProjectLinkKind } from "@portfolio/content";
 
-const projects = [
-     {
-          title: "Tabby",
-          description: "A WXT browser extension for organizing tabs into draggable workspace groups, with IndexedDB persistence, keyboard shortcuts, and a custom React dashboard UI.",
-          url: "https://github.com/lmdevv/tabby-deprecated",
-          languages: ["TypeScript", "React", "Vite", "Tailwind"],
-          topics: ["wxt", "indexeddb", "hotkeys"]
-     },
-     {
-          title: "Openpilot Website",
-          description: "A searchable vehicle compatibility database with URL-synced filters, make/year sorting, feature badges, and parsed support metadata generated from Openpilot vehicle data.",
-          url: "https://github.com/lmdevv/openpilot-compatibility",
-          homepage: "https://openpilot-compatibility-web.vercel.app/",
-          languages: ["TypeScript", "React", "Data Aggregation"],
-          topics: ["tanstack-router", "data-parsing", "vehicle-data"]
-     },
-     {
-          title: "The Scent Guide",
-          description: "A fast, minimal fragrance review site comparing colognes and alternatives, optimized for SEO, advertising, affiliate links, and user behavior tracking.",
-          url: "https://thescentguide.luismario.me/",
-          languages: ["TypeScript", "Astro", "React", "Tailwind"],
-          topics: ["seo", "adsense", "content-site"]
-     },
-     {
-          title: "Movie Recommender System",
-          description: "A MovieLens-powered recommender that searches movies, visualizes rating distributions, and returns similar titles through a Streamlit app backed by Python data processing.",
-          url: "https://github.com/lmdevv/movie-recommendation-system",
-          homepage: "https://notflix.streamlit.app/",
-          languages: ["Python", "Jupyter Notebook", "Streamlit"],
-          topics: ["collaborative-filtering", "streamlit", "data-visualization", "movielens"]
-     },
-     {
-          title: "Fragments",
-          description: "A full-stack fragments service with a TypeScript Express API, React dashboard, AWS Cognito auth, S3/DynamoDB storage, content conversion, Docker, and integration tests.",
-          url: "https://github.com/lmdevv/fragments",
-          homepage: "https://github.com/lmdevv/fragments-ui",
-          homepageLabel: "Frontend Repo",
-          homepageIcon: IconBrandGithub,
-          languages: ["TypeScript", "React", "Express", "AWS Cognito"],
-          topics: ["rest-api", "aws", "tdd"]
-     },
-     {
-          title: "Y2K Hackathon",
-          description: "A hackathon-built AI video generation app that turns chat prompts into educational ManimGL renders by orchestrating Convex actions, Daytona sandboxes, OpenCode agents, and Mux playback.",
-          url: "https://github.com/lmdevv/y2k",
-          languages: ["TypeScript", "React", "Convex", "Python"],
-          topics: ["tanstack-start", "daytona", "opencode", "manim"]
-     },
-     {
-          title: "Cover AI",
-          description: "A Chrome extension that reads DOCX resumes, stores user preferences locally, uses Gemini to tailor cover letters to job descriptions, and exports polished Word documents.",
-          url: "https://github.com/lmdevv/cover-ai",
-          homepage: "https://chromewebstore.google.com/detail/cover-ai/kjcafedikeandgbfhfnjkiimkhffhoco",
-          homepageLabel: "Chrome Web Store",
-          homepageIcon: IconBuildingStore,
-          languages: ["TypeScript", "React", "Chrome APIs", "Gemini"],
-          topics: ["gemini-api", "docx-generation", "browser-storage" ]
-     },
-     {
-          title: "Committer",
-          description: "A Go CLI/TUI that reads staged Git diffs, calls OpenRouter for commit-message suggestions, supports simple or detailed output, and copies results to the clipboard.",
-          url: "https://github.com/lmdevv/committer",
-          languages: ["Go", "Shell", "Git", "Nix"],
-          topics: ["bubble-tea", "cobra", "openrouter-api", "git-cli"]
-     },
-     {
-          title: "Portfolio",
-          description: "A personal portfolio and technical writing site built with Astro, React, and TailwindCSS to present projects, experience, articles, and contact links.",
-          url: "https://github.com/lmdevv/portfolio",
-          homepage: "https://www.luismario.me/",
-          languages: ["Astro", "React", "TailwindCSS"],
-          topics: ["static-site", "personal-branding", "technical-writing"]
-     }
-];
+const homepageIcons: Record<ProjectLinkKind, typeof IconWorldWww> = {
+     web: IconWorldWww,
+     github: IconBrandGithub,
+     store: IconBuildingStore,
+};
 ---
 
 <InfoLayout>
@@ -94,13 +26,13 @@ const projects = [
                                    {project.title}
                               </h2>
                               {project.homepage && (() => {
-                                   const HomepageIcon = project.homepageIcon ?? IconWorldWww;
-                                   const homepageLabel = project.homepageLabel ?? "Live Demo";
+                                   const { url, label, kind } = project.homepage;
+                                   const HomepageIcon = homepageIcons[kind];
 
                                    return (
-                                        <a href={project.homepage} target="_blank" rel="noopener noreferrer" class="pointer-events-auto rounded-md p-1 text-zinc-500 transition-colors hover:text-zinc-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-300" aria-label={homepageLabel} title={homepageLabel}>
+                                        <a href={url} target="_blank" rel="noopener noreferrer" class="pointer-events-auto rounded-md p-1 text-zinc-500 transition-colors hover:text-zinc-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-300" aria-label={label} title={label}>
                                              <HomepageIcon size={20} stroke={1.8} aria-hidden="true" />
-                                             <span class="sr-only">{homepageLabel}</span>
+                                             <span class="sr-only">{label}</span>
                                         </a>
                                    );
                               })()}

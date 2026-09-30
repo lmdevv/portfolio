@@ -9,6 +9,10 @@ This is a pnpm workspace. Enter the Nix devshell (`nix develop`, or `direnv allo
 | Path | What |
 | --- | --- |
 | `apps/web` | Astro website deployed to Cloudflare |
+| `packages/content` | Shared content: profile, experience, projects, contact, articles, drafts, images |
+
+Edit content once in `packages/content`; every client renders from it. Published posts go in
+`packages/content/articles`, work in progress in `packages/content/drafts`.
 
 Shared dependency versions (React, TypeScript, ...) live in the `catalog` in `pnpm-workspace.yaml`.
 

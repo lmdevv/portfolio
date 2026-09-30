@@ -3,11 +3,12 @@ import "../styles/global.css";
 import { Font } from "astro:assets";
 import { ClientRouter } from 'astro:transitions';
 import LoadingIndicator from "astro-loading-indicator/component"
+import { profile } from "@portfolio/content";
 
 const { title, description } = Astro.props;
 
-const defaultTitle = "Luis Mario Agreda";
-const defaultDescription = "Luis Mario Agreda is an aspiring Software Developer based in Miami, Florida. Focused on building scalable systems, AI-powered solutions, and full-stack applications.";
+const defaultTitle = profile.name;
+const defaultDescription = profile.description;
 ---
 
 <!doctype html>

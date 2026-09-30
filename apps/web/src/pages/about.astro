@@ -1,6 +1,8 @@
 ---
 import H1 from "../components/h1.astro";
 import InfoLayout from "../layouts/InfoLayout.astro";
+import { profile } from "@portfolio/content";
+import photo from "@portfolio/content/assets/photo.jpg";
 ---
 
 <InfoLayout>
@@ -9,17 +11,16 @@ import InfoLayout from "../layouts/InfoLayout.astro";
                <H1> About Me </H1>
 
                <div class="flex flex-col sm:flex-row gap-8 items-start">
-                    <img src="/photo.jpg" alt="Luis Mario Agreda" class="w-32 h-32 sm:w-48 sm:h-48 rounded-lg object-cover border border-zinc-800" />
+                    <img src={photo.src} alt={profile.photo.alt} class="w-32 h-32 sm:w-48 sm:h-48 rounded-lg object-cover border border-zinc-800" />
 
                     <div class="space-y-6 text-xl xl:text-2xl text-zinc-400 text-balance">
-                         <p>
-                               Hi! I'm <strong class="text-zinc-200">Luis Mario Agreda</strong>, an aspiring Software Developer based in <strong class="text-zinc-200">Miami, Florida</strong>.
-                         </p>
-                         <p>
-                              I'm on a mission to build amazing things, and accidentally create even more amazing bugs.
-                              When I'm not coding, you'll catch me refactoring perfectly fine code just because it might be 0.1% more efficient.
-                              I'm all about solving problems and turning cool ideas into real, working stuff.
-                         </p>
+                         {profile.bio.map((paragraph) => (
+                              <p>
+                                   {paragraph.map((part) =>
+                                        typeof part === "string" ? part : <strong class="text-zinc-200">{part.strong}</strong>
+                                   )}
+                              </p>
+                         ))}
                     </div>
                </div>
           </div>

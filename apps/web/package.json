@@ -13,6 +13,7 @@
     "@astrojs/react": "^4.2.5",
     "@astrojs/vercel": "^8.1.4",
     "@paper-design/shaders-react": "^0.0.29",
+    "@portfolio/content": "workspace:*",
     "@tabler/icons-react": "^3.44.0",
     "@tailwindcss/vite": "^4.1.4",
     "@types/react": "catalog:",
