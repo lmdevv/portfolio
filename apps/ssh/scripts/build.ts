@@ -53,7 +53,12 @@ for (const target of requested) {
     // OpenTUI imports every platform's native library dynamically; only the target's is bundled.
     external: nativePackages.filter((name) => name !== native),
     define: { "process.env.NODE_ENV": JSON.stringify("production") },
-    compile: { target: `bun-${target}`, outfile },
+    // Select Bun's portable runtime rather than embedding Nix's patched host executable.
+    // The baseline target also runs on older x64 CPUs.
+    compile: {
+      target: target === "linux-x64" ? "bun-linux-x64-baseline" : `bun-${target}`,
+      outfile,
+    },
   });
 
   if (!result.success) {

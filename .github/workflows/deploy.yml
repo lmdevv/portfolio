@@ -1,0 +1,78 @@
+name: Check and deploy portfolio
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: portfolio-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: cachix/install-nix-action@v31
+      - name: Install dependencies
+        run: nix develop -c pnpm install --frozen-lockfile
+      - name: Check workspace
+        run: nix develop -c pnpm check
+      - name: Test public SSH service
+        run: |
+          nix develop -c python3 deploy/ssh/test_server.py
+          bash -n deploy/ssh/bootstrap.sh deploy/ssh/install-release.sh deploy/ssh/provision-gcp.sh
+      - name: Build website
+        run: nix develop -c pnpm build
+      - name: Build SSH client
+        run: nix develop -c pnpm build:ssh
+      - name: Package SSH release
+        run: |
+          mkdir release
+          cp apps/ssh/dist/portfolio-linux-x64 release/portfolio
+          cp deploy/ssh/server.py deploy/ssh/smoke_test.py deploy/ssh/portfolio-ssh.service release/
+          tar -czf portfolio-ssh.tar.gz -C release .
+      - uses: actions/upload-artifact@v7
+        with:
+          name: portfolio-ssh
+          path: portfolio-ssh.tar.gz
+          retention-days: 7
+
+  deploy-ssh:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master' && vars.GCP_PROJECT_ID != ''
+    needs: check
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    environment: production
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          name: portfolio-ssh
+      - uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.GCP_DEPLOY_SERVICE_ACCOUNT }}
+      - uses: google-github-actions/setup-gcloud@v3
+      - name: Deploy through IAP
+        env:
+          GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+          GCP_VM_NAME: ${{ vars.GCP_VM_NAME }}
+          GCP_ZONE: ${{ vars.GCP_ZONE }}
+          RELEASE_SHA: ${{ github.sha }}
+        run: |
+          gcloud compute scp portfolio-ssh.tar.gz deploy/ssh/install-release.sh \
+            "$GCP_VM_NAME:~/" --project="$GCP_PROJECT_ID" --zone="$GCP_ZONE" \
+            --tunnel-through-iap --quiet
+          gcloud compute ssh "$GCP_VM_NAME" \
+            --project="$GCP_PROJECT_ID" --zone="$GCP_ZONE" --tunnel-through-iap --quiet \
+            --command="sudo bash ~/install-release.sh ~/portfolio-ssh.tar.gz '$RELEASE_SHA'"
