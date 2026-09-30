@@ -6,9 +6,9 @@ allowBuilds:
   esbuild: true
   sharp: true
 
-# Fetch Linux and macOS native binaries regardless of host, so the ssh app can cross-compile.
+# Fetch Linux, macOS, and Windows native binaries regardless of host, so the ssh app can cross-compile.
 supportedArchitectures:
-  os: [current, linux, darwin]
+  os: [current, linux, darwin, win32]
   cpu: [current, x64, arm64]
   libc: [current, glibc]
 

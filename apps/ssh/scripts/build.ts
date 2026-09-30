@@ -8,7 +8,14 @@
  */
 import { parseArgs } from "node:util";
 
-const targets = ["linux-x64", "linux-arm64", "darwin-x64", "darwin-arm64"] as const;
+const targets = [
+  "linux-x64",
+  "linux-arm64",
+  "darwin-x64",
+  "darwin-arm64",
+  "windows-x64",
+  "windows-arm64",
+] as const;
 type Target = (typeof targets)[number];
 
 const nativePackages = [
@@ -27,7 +34,8 @@ const { values } = parseArgs({
   options: { target: { type: "string" }, outdir: { type: "string", default: "dist" } },
 });
 
-const current = `${process.platform}-${process.arch}` as Target;
+const os = process.platform === "win32" ? "windows" : process.platform;
+const current = `${os}-${process.arch}` as Target;
 const requested = values.target === "all" ? [...targets] : [(values.target ?? current) as Target];
 
 for (const target of requested) {
@@ -36,12 +44,14 @@ for (const target of requested) {
     process.exit(1);
   }
 
-  const outfile = `${values.outdir}/portfolio-${target}`;
+  const isWindows = target.startsWith("windows-");
+  const native = `@opentui/core-${target.replace(/^windows-/, "win32-")}`;
+  const outfile = `${values.outdir}/portfolio-${target}${isWindows ? ".exe" : ""}`;
   const result = await Bun.build({
     entrypoints: ["src/main.tsx"],
     minify: true,
     // OpenTUI imports every platform's native library dynamically; only the target's is bundled.
-    external: nativePackages.filter((name) => name !== `@opentui/core-${target}`),
+    external: nativePackages.filter((name) => name !== native),
     define: { "process.env.NODE_ENV": JSON.stringify("production") },
     compile: { target: `bun-${target}`, outfile },
   });

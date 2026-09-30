@@ -12,7 +12,7 @@ to be served over SSH.
 | `dev` | `content`, then run `src/main.tsx` from source with Bun |
 | `dev:drafts` | Same, including `packages/content/drafts` |
 | `build` | `content`, then compile `dist/portfolio-<os>-<arch>` for this machine |
-| `build:all` | `content`, then compile linux + macOS, x64 + arm64 |
+| `build:all` | `content`, then compile linux, macOS, and Windows (`.exe`), x64 + arm64 |
 | `typecheck` | `content`, then `tsc` |
 
 Arguments after `--` reach the app, e.g. `pnpm --filter @portfolio/ssh dev -- /blog --images ascii`.
@@ -47,7 +47,7 @@ or a bare post slug. When the binary runs as an sshd `ForceCommand`, it reads
 Pick a mode with `--images`, `PORTFOLIO_IMAGES`, or `i` at runtime:
 
 - `auto`: Kitty graphics or Sixel when the terminal supports them, Unicode quadrant blocks otherwise
-  (always blocks under tmux).
+  (always blocks under tmux). `OPENTUI_IMAGE_PROTOCOL=kitty|sixel|blocks` forces one.
 - `blocks`: Unicode quadrant blocks everywhere.
 - `ascii`: character-ramp ASCII art, tinted with the image's colors.
 - `alt`: a card with the image's alt text.
