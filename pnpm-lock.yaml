@@ -41,6 +41,9 @@ importers:
       '@portfolio/content':
         specifier: workspace:*
         version: link:../../packages/content
+      marked:
+        specifier: ^17.0.1
+        version: 17.0.1
       react:
         specifier: 'catalog:'
         version: 19.3.0

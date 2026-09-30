@@ -6,7 +6,8 @@ import { theme } from "../theme.ts";
 import "./ascii-image.tsx";
 
 type PictureProps = {
-  path: string;
+  /** Embedded image path; when missing, the alt text is shown instead. */
+  path: string | undefined;
   alt: string;
   width: number;
   maxHeight?: number;
@@ -38,7 +39,8 @@ export function Picture(props: PictureProps) {
 
   useEffect(() => {
     let cancelled = false;
-    setFailed(false);
+    setFailed(!props.path);
+    if (!props.path) return;
     loadImage(props.path).then(
       (loaded) => !cancelled && setImage(loaded),
       () => !cancelled && setFailed(true),

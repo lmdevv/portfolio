@@ -1,8 +1,8 @@
 import { useKeyboard, useRenderer } from "@opentui/react";
 import { HelpOverlay } from "./components/help.tsx";
-import { InfoLayout } from "./components/layout.tsx";
-import { PageTitle } from "./components/page-title.tsx";
 import { AboutPage } from "./pages/about.tsx";
+import { ArticlePage } from "./pages/article.tsx";
+import { BlogPage } from "./pages/blog.tsx";
 import { ContactPage } from "./pages/contact.tsx";
 import { ExperiencePage } from "./pages/experience.tsx";
 import { HomePage } from "./pages/home.tsx";
@@ -31,14 +31,12 @@ function Page(props: { route: Route }) {
       return <AboutPage />;
     case "contact":
       return <ContactPage />;
+    case "blog":
+      return <BlogPage category={route.category} />;
+    case "article":
+      return <ArticlePage slug={route.slug} />;
     case "not-found":
       return <NotFoundPage path={route.path} />;
-    default:
-      return (
-        <InfoLayout>
-          <PageTitle title={route.page} subtitle="Coming soon." />
-        </InfoLayout>
-      );
   }
 }
 
