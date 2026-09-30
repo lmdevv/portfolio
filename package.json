@@ -6,6 +6,9 @@
     "dev": "pnpm --filter @portfolio/web dev",
     "build": "pnpm --filter @portfolio/web build",
     "preview": "pnpm --filter @portfolio/web preview",
+    "dev:ssh": "pnpm --filter @portfolio/ssh dev",
+    "dev:ssh:drafts": "pnpm --filter @portfolio/ssh dev:drafts",
+    "build:ssh": "pnpm --filter @portfolio/ssh build",
     "typecheck": "pnpm -r --if-present typecheck"
   },
   "devDependencies": {
