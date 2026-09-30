@@ -55,3 +55,12 @@ skips `.astro` files because Astro formatting is not supported yet. Type checkin
 a separate step; `pnpm typecheck` checks the web app with `astro check` (including `.astro`
 and React components), and the SSH app and shared content with TypeScript. To check only
 the web app, run `pnpm --filter @portfolio/web typecheck`.
+
+## Deployment
+
+Pushes to `master` deploy the website through Cloudflare Pages' GitHub integration. GitHub Actions
+also checks the workspace, builds both clients, and deploys the SSH client to the GCP host through
+IAP using GitHub OIDC. The website banner and shared profile use `ssh portfolio@ssh.luismario.me`.
+
+Host provisioning, visitor restrictions, release checks, and rollback are documented in
+[deploy/ssh](deploy/ssh/README.md).
