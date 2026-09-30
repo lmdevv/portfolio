@@ -7,7 +7,7 @@ import asyncssh
 
 async def main():
     # This probe only connects to loopback inside the host, never a remote origin.
-    async with asyncssh.connect("::1", username="portfolio", known_hosts=None, client_keys=[]) as connection:
+    async with asyncssh.connect("::1", known_hosts=None, client_keys=[]) as connection:
         process = await connection.create_process(term_type="xterm-256color", term_size=(100, 30), encoding=None)
         output = await asyncio.wait_for(process.stdout.read(4096), 10)
         if not output:
