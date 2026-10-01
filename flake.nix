@@ -29,6 +29,9 @@
         { pkgs, system }:
         {
           default = pkgs.mkShellNoCC {
+            # Keep cached native binaries separate across development platforms.
+            PORTFOLIO_BUILD_PLATFORM = system;
+
             packages = with pkgs; [
               nodejs_22
               pnpm_10
