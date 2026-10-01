@@ -4,7 +4,9 @@ Personal portfolio and resume, as a website and as a terminal app you can SSH in
 
 ## Layout
 
-This is a pnpm workspace. Enter the Nix devshell (`nix develop`, or `direnv allow`) for node, pnpm, and bun.
+This is a pnpm workspace orchestrated by [Turborepo](https://turborepo.dev/docs).
+Enter the Nix devshell (`nix develop`, or `direnv allow`) for node, pnpm, and bun.
+Use the pnpm supplied by Nix; `packageManager` records its version for Turborepo.
 
 | Path               | What                                                                                        |
 | ------------------ | ------------------------------------------------------------------------------------------- |
@@ -21,10 +23,33 @@ Shared dependency versions (React, TypeScript, ...) live in the `catalog` in `pn
 pnpm install
 pnpm dev          # web dev server
 pnpm build        # web production build -> apps/web/dist
-pnpm preview      # serve the web build
+pnpm build:all    # build both the website and the native SSH binary
+pnpm preview      # build if needed, then serve the web build
 pnpm dev:ssh      # terminal client from source (dev:ssh:drafts includes drafts)
 pnpm build:ssh    # terminal binary -> apps/ssh/dist/portfolio-<os>-<arch>
 pnpm typecheck
+```
+
+## Task caching
+
+`turbo.json` defines build and typecheck dependencies, plus the workspace-wide lint and
+format checks used by `pnpm check`. Shared content changes invalidate both clients, even
+though `@portfolio/content` exports source files and has no build step. Build artifacts,
+Astro's generated files, and generated SSH content are restored on cache hits.
+
+The local cache lives in `.turbo/` and is ignored by Git. The Nix flake, lockfile, shared
+TypeScript configuration, and build platform participate in cache keys. The devshell sets
+`PORTFOLIO_BUILD_PLATFORM` so native binaries cannot be reused across operating systems or
+architectures. Keep `packageManager` aligned with Nix's pnpm version when updating the flake.
+
+Development and preview servers are never cached. The web server retains its development
+environment; `dev:ssh` and `dev:ssh:drafts` run directly so OpenTUI owns the terminal and
+receives keyboard input and SSH environment variables.
+
+```sh
+pnpm exec turbo run build typecheck --dry=json # inspect task dependencies and cache keys
+pnpm build:all --force                        # rebuild both clients without cache reads
+pnpm exec turbo run typecheck --filter=@portfolio/ssh
 ```
 
 ## Linting and formatting

@@ -1,0 +1,55 @@
+{
+  "$schema": "https://turborepo.dev/schema.json",
+  "ui": "stream",
+  "globalDependencies": ["flake.nix", "flake.lock", "tsconfig.base.json"],
+  "globalEnv": ["NODE_ENV", "PORTFOLIO_BUILD_PLATFORM"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": ["dist/**"]
+    },
+    "@portfolio/web#build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": ["dist/**", ".astro/**"]
+    },
+    "@portfolio/ssh#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/portfolio-*", "src/generated/**"]
+    },
+    "typecheck": {
+      "dependsOn": ["^typecheck"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": []
+    },
+    "@portfolio/web#typecheck": {
+      "dependsOn": ["^typecheck"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": [".astro/**"]
+    },
+    "@portfolio/ssh#typecheck": {
+      "dependsOn": ["^typecheck"],
+      "outputs": ["src/generated/**"]
+    },
+    "//#lint": {
+      "outputs": []
+    },
+    "//#format:check": {
+      "outputs": []
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "dev:drafts": {
+      "cache": false,
+      "persistent": true
+    },
+    "preview": {
+      "dependsOn": ["build"],
+      "cache": false,
+      "persistent": true
+    }
+  }
+}
