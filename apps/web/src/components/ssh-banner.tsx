@@ -53,7 +53,7 @@ export default function SshBanner({ command }: { command: string }) {
             <div className="flex items-start justify-between gap-4">
               <p className="flex items-center gap-2 text-zinc-300">
                 <IconTerminal2 size={20} className="shrink-0 text-zinc-100" aria-hidden />
-                btw, you can SSH into this site too
+                you can SSH into this site btw
               </p>
               <button
                 type="button"
